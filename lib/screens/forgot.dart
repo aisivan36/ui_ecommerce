@@ -77,7 +77,9 @@ class _ForgotPageState extends State<ForgotPage> {
                             }
                           },
                           validator: (value) {
-                            if (value!.isNotEmpty) {
+                            if (value!.isNotEmpty &&
+                                !value.contains('@') &&
+                                !value.contains('.')) {
                               return "Please enter valid Email";
                             } else if (value.isEmpty) {
                               return 'Email is empty';
@@ -93,18 +95,17 @@ class _ForgotPageState extends State<ForgotPage> {
                           onPressed: () {
                             // print(_formKey.currentState!.validate());
                             // print(email.text);
-                            if (email.text.isNotEmpty) {
-                              if (_formKey.currentState!.validate()) {
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(const SnackBar(
-                                        content: Text(
-                                  'Please Check your email',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20,
-                                  ),
-                                )));
-                              }
+
+                            if (_formKey.currentState!.validate()) {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                      content: Text(
+                                'Please Check your email',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                ),
+                              )));
                             }
                           },
                           child: Container(

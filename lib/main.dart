@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ui_ecommerce/screens/forgot.dart';
+import 'package:ui_ecommerce/screens/login.dart';
 import 'package:ui_ecommerce/screens/signup.dart';
+import 'package:ui_ecommerce/utils/route_observer.dart';
 
 void main() {
   runApp(const MyApp());
@@ -39,6 +42,30 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: const SignUpPage(),
+      navigatorObservers: [routeObserver],
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case '/signup':
+            return MaterialPageRoute(
+              builder: (context) => const SignUpPage(),
+            );
+          case LoginPage.routeName:
+            return MaterialPageRoute(
+              builder: (context) => const LoginPage(),
+            );
+          case ForgotPage.routeName:
+            return MaterialPageRoute(
+              builder: (context) => const ForgotPage(),
+            );
+
+          default:
+            return MaterialPageRoute(
+              builder: (context) => Scaffold(
+                appBar: AppBar(title: const Text('Page not found')),
+              ),
+            );
+        }
+      },
     );
   }
 }

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:ui_ecommerce/screens/login.dart';
 import 'package:ui_ecommerce/widgets/form_sign.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
+
+  static const String routeName = '/signup';
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();
@@ -18,8 +21,16 @@ class _SignUpPageState extends State<SignUpPage> {
   bool passwordLogo = false;
 
   @override
+  void dispose() {
+    name.dispose();
+    email.dispose();
+    password.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    var heightPadding = MediaQuery.of(context);
+    // var heightPadding = MediaQuery.of(context);
     // print(heightPadding.size.height - 55);
     return Scaffold(
       extendBody: true,
@@ -67,7 +78,6 @@ class _SignUpPageState extends State<SignUpPage> {
                             nameLogo = true;
                             setState(() {});
                           }
-                          return "Please enter valid Name";
                         },
                       ),
                       FormSign(
@@ -81,7 +91,15 @@ class _SignUpPageState extends State<SignUpPage> {
                             emailLogo = true;
                             setState(() {});
                           }
-                          return "Please enter valid Email";
+                        },
+                        validator: (value) {
+                          if (value!.isNotEmpty &&
+                              !value.contains('@') &&
+                              !value.contains('.')) {
+                            return "Please enter a valid email";
+                          } else {
+                            return null;
+                          }
                         },
                       ),
                       FormSign(
@@ -94,14 +112,22 @@ class _SignUpPageState extends State<SignUpPage> {
                             passwordLogo = true;
                             setState(() {});
                           }
-                          return "Please enter at least 6 Characters long";
+                        },
+                        validator: (value) {
+                          if (value!.isNotEmpty && value.length < 6) {
+                            return "Please enter at least 6 characters long";
+                          } else {
+                            return null;
+                          }
                         },
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamed(context, LoginPage.routeName);
+                            },
                             child: const Text(
                               'Already have an account?',
                               style: TextStyle(

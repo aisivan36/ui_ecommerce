@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:ui_ecommerce/screens/forgot.dart';
 import 'package:ui_ecommerce/widgets/form_sign.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  static const String routeName = '/login';
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -24,17 +27,13 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    // var heightPadding = MediaQuery.of(context);
-    // print(heightPadding.size.height - 55);
     return Scaffold(
       extendBody: true,
-      // backgroundColor: const Color(0x1E1F28ff),
       appBar: AppBar(
-        // backgroundColor: const Color(0x1E1F28ff),
-        // elevation: 0.0,
-
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
           icon: const Icon(Icons.arrow_back_ios_new),
         ),
         leadingWidth: 20.0,
@@ -74,7 +73,6 @@ class _LoginPageState extends State<LoginPage> {
                             emailLogo = true;
                             setState(() {});
                           }
-                          return "Please enter valid Email";
                         },
                       ),
                       FormSign(
@@ -87,14 +85,25 @@ class _LoginPageState extends State<LoginPage> {
                             passwordLogo = true;
                             setState(() {});
                           }
-                          return "Please enter at least 6 Characters long";
+                        },
+                        validator: (value) {
+                          if (value!.isNotEmpty &&
+                              !value.contains('@') &&
+                              !value.contains('.')) {
+                            return "Please enter at least 6 Characters long";
+                          } else {
+                            return null;
+                          }
                         },
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, ForgotPage.routeName);
+                            },
                             child: const Text(
                               'Forgot your password?',
                               style: TextStyle(

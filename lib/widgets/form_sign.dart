@@ -8,11 +8,15 @@ class FormSign extends StatelessWidget {
     required this.onChanged,
     required this.isForm,
     this.isPasswordForm = false,
+    this.onTap,
+    this.validator,
   });
 
   final TextEditingController controller;
 
-  final String Function(String? value)? onChanged;
+  final void Function(String? value)? onChanged;
+  final String? Function(String? value)? validator;
+  final void Function()? onTap;
 
   final bool isForm;
   final String labelText;
@@ -27,6 +31,8 @@ class FormSign extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         onChanged: onChanged,
+        onTap: onTap,
+        validator: validator,
         obscureText: isPasswordForm,
         style: const TextStyle(
           color: Colors.white,

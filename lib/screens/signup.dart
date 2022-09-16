@@ -85,6 +85,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         },
                       ),
                       FormSign(
+                        isPasswordForm: true,
                         labelText: 'Password',
                         controller: password,
                         isForm: passwordLogo,

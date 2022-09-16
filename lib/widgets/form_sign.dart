@@ -7,6 +7,7 @@ class FormSign extends StatelessWidget {
     required this.controller,
     required this.onChanged,
     required this.isForm,
+    this.isPasswordForm = false,
   });
 
   final TextEditingController controller;
@@ -15,6 +16,7 @@ class FormSign extends StatelessWidget {
 
   final bool isForm;
   final String labelText;
+  final bool isPasswordForm;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,7 @@ class FormSign extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         onChanged: onChanged,
+        obscureText: isPasswordForm,
         style: const TextStyle(
           color: Colors.white,
           fontSize: 14.0,

@@ -77,9 +77,7 @@ class _ForgotPageState extends State<ForgotPage> {
                             }
                           },
                           validator: (value) {
-                            if (value!.isNotEmpty &&
-                                !value.contains('@') &&
-                                !value.contains('.')) {
+                            if (value!.isNotEmpty) {
                               return "Please enter valid Email";
                             } else if (value.isEmpty) {
                               return 'Email is empty';

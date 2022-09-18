@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 
+enum IsIconForm {
+  valid,
+  notValid,
+  none,
+}
+
 class FormSign extends StatelessWidget {
   const FormSign({
     super.key,
     required this.labelText,
     required this.controller,
     required this.onChanged,
-    required this.isForm,
+    required this.isIconForm,
     this.isPasswordForm = false,
     this.onTap,
     this.validator,
@@ -18,7 +24,7 @@ class FormSign extends StatelessWidget {
   final String? Function(String? value)? validator;
   final void Function()? onTap;
 
-  final bool isForm;
+  final IsIconForm isIconForm;
   final String labelText;
   final bool isPasswordForm;
 
@@ -26,7 +32,7 @@ class FormSign extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       // color: Colors.amber,
-      height: 64,
+      height: 74,
       // width: 343,
       child: TextFormField(
         controller: controller,
@@ -45,16 +51,29 @@ class FormSign extends StatelessWidget {
             color: Color(0xffabb4bd),
             fontSize: 15,
           ),
-          suffixIcon: isForm
-              ? const Icon(
-                  Icons.done,
-                  color: Color(0xff55d75a),
-                )
-              : const SizedBox(),
+          suffixIcon: _sufficIcon(),
           fillColor: const Color(0xff2a2b36),
           filled: true,
         ),
       ),
     );
+  }
+
+  Widget _sufficIcon() {
+    switch (isIconForm) {
+      case IsIconForm.valid:
+        return const Icon(
+          Icons.done,
+          color: Color(0xff55d75a),
+        );
+      case IsIconForm.notValid:
+        return const Icon(
+          Icons.clear,
+          color: Color(0xFFEC1B1B),
+        );
+
+      default:
+        return const SizedBox();
+    }
   }
 }

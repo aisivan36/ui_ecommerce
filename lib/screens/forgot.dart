@@ -13,7 +13,7 @@ class ForgotPage extends StatefulWidget {
 class _ForgotPageState extends State<ForgotPage> {
   TextEditingController email = TextEditingController();
 
-  bool emailLogo = false;
+  IsIconForm emailLogo = IsIconForm.none;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -67,21 +67,31 @@ class _ForgotPageState extends State<ForgotPage> {
                         FormSign(
                           labelText: 'Email',
                           controller: email,
-                          isForm: emailLogo,
+                          isIconForm: emailLogo,
                           onChanged: (value) {
                             if (value!.isNotEmpty &&
                                 value.contains('@') &&
                                 value.contains('.')) {
-                              emailLogo = true;
+                              emailLogo = IsIconForm.valid;
+                              setState(() {});
+                            }
+                            if (value.isEmpty ||
+                                !value.contains('@') ||
+                                !value.contains('.')) {
+                              emailLogo = IsIconForm.none;
                               setState(() {});
                             }
                           },
                           validator: (value) {
-                            if (value!.isNotEmpty &&
-                                !value.contains('@') &&
+                            if (value!.isEmpty ||
+                                !value.contains('@') ||
                                 !value.contains('.')) {
-                              return "Please enter valid Email";
+                              emailLogo = IsIconForm.notValid;
+                              setState(() {});
+                              return "Please enter a valid Email";
                             } else if (value.isEmpty) {
+                              emailLogo = IsIconForm.notValid;
+                              setState(() {});
                               return 'Email is empty';
                             } else {
                               return null;
@@ -97,15 +107,17 @@ class _ForgotPageState extends State<ForgotPage> {
                             // print(email.text);
 
                             if (_formKey.currentState!.validate()) {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(const SnackBar(
-                                      content: Text(
-                                'Please Check your email',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20,
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    'Please Check your email',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                    ),
+                                  ),
                                 ),
-                              )));
+                              );
                             }
                           },
                           child: Container(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui_ecommerce/screens/forgot.dart';
+import 'package:ui_ecommerce/screens/main_screen.dart';
 import 'package:ui_ecommerce/screens/login.dart';
 import 'package:ui_ecommerce/screens/signup.dart';
 import 'package:ui_ecommerce/utils/route_observer.dart';
@@ -56,6 +57,10 @@ class MyApp extends StatelessWidget {
           case ForgotPage.routeName:
             return MaterialPageRoute(
               builder: (context) => const ForgotPage(),
+            );
+          case MainScreen.routeName:
+            return MaterialPageRoute(
+              builder: (context) => const MainScreen(),
             );
 
           default:

@@ -15,8 +15,10 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
 
-  bool emailLogo = false;
-  bool passwordLogo = false;
+  IsIconForm emailLogo = IsIconForm.none;
+  IsIconForm passwordLogo = IsIconForm.none;
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -50,98 +52,134 @@ class _LoginPageState extends State<LoginPage> {
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Login',
-                        style: TextStyle(
-                          color: Color(0xfff6f6f6),
-                          fontWeight: FontWeight.w700,
-                          fontSize: 34,
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Login',
+                          style: TextStyle(
+                            color: Color(0xfff6f6f6),
+                            fontWeight: FontWeight.w700,
+                            fontSize: 34,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 20),
-                      FormSign(
-                        labelText: 'Email',
-                        controller: email,
-                        isForm: emailLogo,
-                        onChanged: (value) {
-                          if (value!.isNotEmpty &&
-                              value.contains('@') &&
-                              value.contains('.')) {
-                            emailLogo = true;
-                            setState(() {});
-                          }
-                        },
-                      ),
-                      FormSign(
-                        isPasswordForm: true,
-                        labelText: 'Password',
-                        controller: password,
-                        isForm: passwordLogo,
-                        onChanged: (value) {
-                          if (value!.isNotEmpty && value.length >= 6) {
-                            passwordLogo = true;
-                            setState(() {});
-                          }
-                        },
-                        validator: (value) {
-                          if (value!.isNotEmpty &&
-                              !value.contains('@') &&
-                              !value.contains('.')) {
-                            return "Please enter at least 6 Characters long";
-                          } else {
-                            return null;
-                          }
-                        },
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                  context, ForgotPage.routeName);
-                            },
-                            child: const Text(
-                              'Forgot your password?',
-                              style: TextStyle(
-                                color: Colors.white,
+                        const SizedBox(height: 20),
+                        FormSign(
+                          labelText: 'Email',
+                          controller: email,
+                          isIconForm: emailLogo,
+                          onChanged: (value) {
+                            if (value!.isNotEmpty &&
+                                value.contains('@') &&
+                                value.contains('.')) {
+                              emailLogo = IsIconForm.valid;
+                              setState(() {});
+                            }
+                            if (value.isEmpty ||
+                                !value.contains('@') ||
+                                !value.contains('.')) {
+                              emailLogo = IsIconForm.none;
+                              setState(() {});
+                            }
+                          },
+                          validator: (value) {
+                            if (value!.isEmpty ||
+                                !value.contains('@') ||
+                                !value.contains('.')) {
+                              emailLogo = IsIconForm.notValid;
+                              setState(() {});
+                              return "Please enter a valid Email";
+                            } else if (value.isEmpty) {
+                              emailLogo = IsIconForm.notValid;
+                              setState(() {});
+                              return 'Email is empty';
+                            } else {
+                              return null;
+                            }
+                          },
+                        ),
+                        const SizedBox(height: 5.0),
+                        FormSign(
+                          isPasswordForm: true,
+                          labelText: 'Password',
+                          controller: password,
+                          isIconForm: passwordLogo,
+                          onChanged: (value) {
+                            if (value!.length >= 6) {
+                              passwordLogo = IsIconForm.valid;
+                              setState(() {});
+                            } else if (value.length <= 5) {
+                              passwordLogo = IsIconForm.none;
+                              setState(() {});
+                            }
+                          },
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              passwordLogo = IsIconForm.notValid;
+                              setState(() {});
+                              return "Password cannot be empty";
+                            } else if (value.length <= 5) {
+                              passwordLogo = IsIconForm.notValid;
+                              setState(() {});
+                              return "Please enter at least 6 Characters long";
+                            } else {
+                              return null;
+                            }
+                          },
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                    context, ForgotPage.routeName);
+                              },
+                              child: const Text(
+                                'Forgot your password?',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            const Icon(
+                              Icons.arrow_forward,
+                              color: Color(0xffef3651),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 15.0,
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              print('succed');
+                            }
+                          },
+                          child: Container(
+                            height: 48,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(25),
+                              color: const Color(0xffef3651),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Sign up'.toUpperCase(),
+                                style: const TextStyle(
+                                  color: Color(0xfff5f5f5),
+                                  fontSize: 14,
+                                  // fontFamily: "Metropolis",
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ),
                           ),
-                          const Icon(
-                            Icons.arrow_forward,
-                            color: Color(0xffef3651),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 15.0,
-                      ),
-                      TextButton(
-                        onPressed: () {},
-                        child: Container(
-                          height: 48,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            color: const Color(0xffef3651),
-                          ),
-                          child: Center(
-                            child: Text(
-                              'Sign up'.toUpperCase(),
-                              style: const TextStyle(
-                                color: Color(0xfff5f5f5),
-                                fontSize: 14,
-                                // fontFamily: "Metropolis",
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ui_ecommerce/screens/home_screen.dart';
 
 class TabbarScreen extends StatefulWidget {
   const TabbarScreen({super.key});
@@ -11,7 +12,7 @@ class TabbarScreen extends StatefulWidget {
 
 class _TabbarScreenState extends State<TabbarScreen> {
   static const _kTabPages = <Widget>[
-    _TempPages(appBartitle: 'Home', centerText: 'HomeScreen'),
+    HomeScreen(),
     _TempPages(appBartitle: 'Shop', centerText: 'ShopScreen'),
     _TempPages(appBartitle: 'Bag', centerText: 'BagScreen'),
     _TempPages(appBartitle: 'Favorites', centerText: 'FavoritesScreen'),

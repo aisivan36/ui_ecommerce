@@ -31,15 +31,26 @@ class MyApp extends StatelessWidget {
 
         // primarySwatch: Palette.kToDark,
         colorScheme: const ColorScheme.dark(
-          primary: Color(0x1E1F28ff),
+          primary: Color(0xff1d1f27),
+        ),
+
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          selectedItemColor: Colors.red,
+          showUnselectedLabels: true,
+          unselectedItemColor: Color(0xffabb4bd),
+          type: BottomNavigationBarType.fixed,
+          selectedLabelStyle: TextStyle(fontSize: 11),
+          unselectedLabelStyle: TextStyle(fontSize: 11),
+          selectedIconTheme: IconThemeData(size: 33),
+          unselectedIconTheme: IconThemeData(size: 33),
         ),
 
         // primaryColor: const Color(0x1E1F28ff),
         // backgroundColor: const Color(0x1E1F28ff),
-        scaffoldBackgroundColor: const Color(0x1E1F28ff),
+        scaffoldBackgroundColor: const Color(0xff1d1f27),
 
         appBarTheme: const AppBarTheme(
-          color: Color(0x1E242546),
+          color: Color(0xff1d1f27),
         ),
       ),
       home: const SignUpPage(),

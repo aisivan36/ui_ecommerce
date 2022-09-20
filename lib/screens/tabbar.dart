@@ -10,6 +10,16 @@ class TabbarScreen extends StatefulWidget {
 }
 
 class _TabbarScreenState extends State<TabbarScreen> {
+  static const _kTabPages = <Widget>[
+    _TempPages(appBartitle: 'Home', centerText: 'HomeScreen'),
+    _TempPages(appBartitle: 'Shop', centerText: 'ShopScreen'),
+    _TempPages(appBartitle: 'Bag', centerText: 'BagScreen'),
+    _TempPages(appBartitle: 'Favorites', centerText: 'FavoritesScreen'),
+    _TempPages(appBartitle: 'Profile', centerText: 'ProfileScreen'),
+  ];
+
+  int index = 0;
+
   static const bottomNav = <BottomNavigationBarItem>[
     BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
     BottomNavigationBarItem(
@@ -21,98 +31,45 @@ class _TabbarScreenState extends State<TabbarScreen> {
     BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'Profile'),
   ];
 
-  static const _kTabPages = <Widget>[
-    _TempPages(appBartitle: 'Home', centerText: 'HomeScreen'),
-    _TempPages(appBartitle: 'Shop', centerText: 'ShopScreen'),
-    _TempPages(appBartitle: 'Bag', centerText: 'BagScreen'),
-    _TempPages(appBartitle: 'Favorites', centerText: 'FavoritesScreen'),
-    _TempPages(appBartitle: 'Profile', centerText: 'ProfileScreen'),
-  ];
-
-  int index = 0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // extent the body to make it more realistic
+      extendBody: true,
       body: _kTabPages[index],
       bottomNavigationBar: Container(
-        height: 60.0,
-        decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor,
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            IconButton(
-              enableFeedback: false,
-              onPressed: () {
-                setState(() {
-                  index = 0;
-                });
-              },
-              icon: const Icon(
-                Icons.home,
-                color: Colors.white,
-                size: 35,
-              ),
-            ),
-            IconButton(
-              enableFeedback: false,
-              onPressed: () {
-                setState(() {
-                  index = 1;
-                });
-              },
-              icon: const Icon(
-                Icons.shopping_cart_outlined,
-                color: Colors.white,
-                size: 35,
-              ),
-            ),
-            IconButton(
-              enableFeedback: false,
-              onPressed: () {
-                setState(() {
-                  index = 2;
-                });
-              },
-              icon: const Icon(
-                Icons.shopping_bag_outlined,
-                color: Colors.white,
-                size: 35,
-              ),
-            ),
-            IconButton(
-              enableFeedback: false,
-              onPressed: () {
-                setState(() {
-                  index = 3;
-                });
-              },
-              icon: const Icon(
-                Icons.favorite_outline_outlined,
-                color: Colors.white,
-                size: 35,
-              ),
-            ),
-            IconButton(
-              enableFeedback: false,
-              onPressed: () {
-                setState(() {
-                  index = 4;
-                });
-              },
-              icon: const Icon(
-                Icons.person_outline_outlined,
-                color: Colors.white,
-                size: 35,
-              ),
+        // color: Colors.amber,
+        // padding: const EdgeInsets.all(8),
+        decoration: const BoxDecoration(
+          // color: Colors.amber,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black,
+              blurRadius: 21,
             ),
           ],
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(21),
+            topRight: Radius.circular(21),
+          ),
+        ),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(21),
+            topRight: Radius.circular(21),
+          ),
+          child: BottomNavigationBar(
+            items: bottomNav,
+            currentIndex: index,
+            elevation: 8.0,
+            backgroundColor: const Color(0xff1d1f27),
+            // backgroundColor: Colors.black,
+            onTap: (value) {
+              setState(() {
+                index = value;
+              });
+            },
+          ),
         ),
       ),
     );

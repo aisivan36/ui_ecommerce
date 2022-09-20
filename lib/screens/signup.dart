@@ -211,7 +211,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           ),
                         ),
-                        // TODO This is just for testing should be remove
+                        // TODO This is just for testing, should be removed
                         TextButton(
                           onPressed: () {
                             Navigator.pushReplacementNamed(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui_ecommerce/screens/forgot.dart';
-import 'package:ui_ecommerce/screens/main_screen.dart';
+import 'package:ui_ecommerce/screens/tabbar.dart';
 import 'package:ui_ecommerce/screens/login.dart';
 import 'package:ui_ecommerce/screens/signup.dart';
 import 'package:ui_ecommerce/utils/route_observer.dart';
@@ -58,9 +58,9 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(
               builder: (context) => const ForgotPage(),
             );
-          case MainScreen.routeName:
+          case TabbarScreen.routeName:
             return MaterialPageRoute(
-              builder: (context) => const MainScreen(),
+              builder: (context) => const TabbarScreen(),
             );
 
           default:

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui_ecommerce/screens/login.dart';
+import 'package:ui_ecommerce/screens/tabbar.dart';
 import 'package:ui_ecommerce/widgets/form_sign.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -207,6 +208,19 @@ class _SignUpPageState extends State<SignUpPage> {
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
+                            ),
+                          ),
+                        ),
+                        // TODO This is just for testing should be remove
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pushReplacementNamed(
+                                context, TabbarScreen.routeName);
+                          },
+                          child: const Text(
+                            'Temp Guess login?',
+                            style: TextStyle(
+                              color: Colors.white,
                             ),
                           ),
                         ),

@@ -34,6 +34,8 @@ class MyApp extends StatelessWidget {
           primary: Color(0xff1d1f27),
         ),
 
+        fontFamily: 'Metropolis',
+
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           selectedItemColor: Colors.red,
           showUnselectedLabels: true,
